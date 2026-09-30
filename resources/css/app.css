@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+
+/* Mode gelap dikendalikan server lewat atribut pada <html>, bukan JavaScript. */
+@custom-variant dark (&:where([data-tema="gelap"], [data-tema="gelap"] *));
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Hijau zamrud: identitas daur ulang. */
+    --color-merk-50: #ecfdf5;
+    --color-merk-100: #d1fae5;
+    --color-merk-200: #a7f3d0;
+    --color-merk-300: #6ee7b7;
+    --color-merk-400: #34d399;
+    --color-merk-500: #10b981;
+    --color-merk-600: #059669;
+    --color-merk-700: #047857;
+    --color-merk-800: #065f46;
+    --color-merk-900: #064e3b;
+    --color-merk-950: #022c22;
+
+    /* Amber: menandai nilai, uang, dan harga. */
+    --color-nilai-50: #fffbeb;
+    --color-nilai-100: #fef3c7;
+    --color-nilai-200: #fde68a;
+    --color-nilai-400: #fbbf24;
+    --color-nilai-500: #f59e0b;
+    --color-nilai-600: #d97706;
+    --color-nilai-700: #b45309;
+
+    --radius-kartu: 1rem;
+    --shadow-lembut: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 4px 16px -2px rgb(15 23 42 / 0.06);
+    --shadow-naik: 0 2px 4px -1px rgb(15 23 42 / 0.06), 0 12px 32px -4px rgb(15 23 42 / 0.12);
+
+    --animate-masuk: masuk 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    --animate-naik: naik 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes masuk {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes naik {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes denyut {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-slate-50 text-slate-800 antialiased;
+        @apply dark:bg-slate-950 dark:text-slate-200;
+    }
+
+    /* Fokus keyboard yang terlihat jelas: syarat aksesibilitas dasar. */
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-merk-600 dark:outline-merk-400;
+    }
+
+    ::selection {
+        @apply bg-merk-200 text-merk-900;
+    }
+
+    /* Hormati pengguna yang mematikan animasi di sistem operasinya. */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+@layer components {
+    /* Latar bergradasi lembut untuk bagian hero. */
+    .latar-hero {
+        background-image:
+            radial-gradient(60rem 30rem at 15% -10%, var(--color-merk-100) 0%, transparent 55%),
+            radial-gradient(45rem 25rem at 95% 0%, var(--color-nilai-100) 0%, transparent 50%);
+    }
+
+    [data-tema='gelap'] .latar-hero {
+        background-image:
+            radial-gradient(60rem 30rem at 15% -10%, color-mix(in oklab, var(--color-merk-900) 55%, transparent) 0%, transparent 55%),
+            radial-gradient(45rem 25rem at 95% 0%, color-mix(in oklab, var(--color-nilai-700) 28%, transparent) 0%, transparent 50%);
+    }
+
+    /* Pola titik halus sebagai tekstur latar. */
+    .pola-titik {
+        background-image: radial-gradient(currentColor 1px, transparent 1px);
+        background-size: 22px 22px;
+    }
+
+    .denyut-lembut {
+        animation: denyut 2s ease-in-out infinite;
+    }
+
+    /* Sembunyikan scrollbar pada baris yang bisa digeser mendatar. */
+    .geser-rapi {
+        scrollbar-width: none;
+    }
+
+    .geser-rapi::-webkit-scrollbar {
+        display: none;
+    }
+}
