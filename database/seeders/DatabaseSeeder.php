@@ -40,6 +40,8 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Memberikan lencana kepada warga...');
         $this->berikanLencana();
 
+        $this->call(AntreanDemoSeeder::class);
+
         $this->command->newLine();
         $this->command->info('Akun demo (kata sandi semua: password)');
         $this->command->table(

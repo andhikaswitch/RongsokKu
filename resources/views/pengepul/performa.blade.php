@@ -93,6 +93,26 @@
                             <span class="ml-auto text-xs text-slate-400">{{ tanggal_id($u->created_at) }}</span>
                         </div>
                         <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{{ $u->komentar }}</p>
+
+                        @if ($u->balasan)
+                            <div class="mt-3 rounded-xl bg-slate-50 p-3 text-sm dark:bg-slate-800/50">
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">Balasan Anda · {{ tanggal_id($u->dibalas_pada) }}</p>
+                                <p class="mt-1 text-slate-600 dark:text-slate-400">{{ $u->balasan }}</p>
+                            </div>
+                        @else
+                            {{-- Form balasan dilipat dengan <details>, tanpa JavaScript. --}}
+                            <details class="group mt-2">
+                                <summary class="cursor-pointer list-none text-xs font-semibold text-merk-700 hover:underline dark:text-merk-400">
+                                    Balas ulasan
+                                </summary>
+                                <form method="POST" action="{{ route('pengepul.ulasan.balas', $u) }}" class="mt-2 space-y-2">
+                                    @csrf
+                                    <x-kolom :nama="'balasan'" :id="'balasan-'.$u->id" tipe="textarea" rows="2"
+                                             placeholder="Terima kasih atas ulasannya..." required />
+                                    <x-tombol type="submit" variant="halus" ukuran="kecil">Kirim balasan</x-tombol>
+                                </form>
+                            </details>
+                        @endif
                     </div>
                 @empty
                     <x-kosong ikon="bintang" judul="Belum ada ulasan"

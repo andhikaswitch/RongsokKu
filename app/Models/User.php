@@ -25,6 +25,12 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
+    /** Samakan dengan nilai bawaan kolom agar model yang baru dibuat langsung konsisten. */
+    protected $attributes = [
+        'peran' => 'warga',
+        'aktif' => true,
+    ];
+
     protected function casts(): array
     {
         return [

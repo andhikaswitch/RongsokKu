@@ -16,7 +16,9 @@ class MetrikPengepulService
 {
     public function segarkan(ProfilPengepul $pengepul): void
     {
-        $pengepul->update([
+        // forceFill karena kolom metrik sengaja tidak masuk $fillable:
+        // nilainya hanya boleh diisi sistem, tidak pernah dari input form.
+        $pengepul->forceFill([
             'skor_kepatuhan_harga' => $this->kepatuhanHarga($pengepul),
             'tingkat_penerimaan' => $this->tingkatPenerimaan($pengepul),
             'ketepatan_waktu' => $this->ketepatanWaktu($pengepul),
@@ -26,7 +28,7 @@ class MetrikPengepulService
             'total_transaksi' => $pengepul->permintaan()->where('status', StatusPermintaan::Selesai)->count(),
             'total_berat_kg' => round((float) $pengepul->permintaan()
                 ->where('status', StatusPermintaan::Selesai)->sum('berat_final_kg'), 2),
-        ]);
+        ])->save();
     }
 
     /**

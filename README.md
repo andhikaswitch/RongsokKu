@@ -162,7 +162,21 @@ Kata sandi semua akun: `password`
 |---|---|
 | Warga | `andhika@warga.test` |
 | Pengepul | `jaya@pengepul.test` |
+| Pengepul (belum terverifikasi) | `maju@pengepul.test` |
 | Admin | `admin@rongsokku.test` |
+
+---
+
+### Pengujian & Tugas Terjadwal
+
+```bash
+php artisan test               # 19 pengujian otomatis alur bisnis
+php artisan schedule:work      # hitung indeks harga & metrik pengepul tiap malam
+```
+
+Data demo sudah berisi satu contoh di setiap antrean admin — pengepul menunggu
+verifikasi, top-up menunggu konfirmasi, dan satu sengketa — sehingga seluruh fitur
+bisa langsung dicoba.
 
 ---
 
@@ -173,22 +187,27 @@ app/
 ├── Enums/          Status transaksi, peran, verifikasi, dll.
 ├── Http/
 │   ├── Controllers/ Publik/ Auth/ Warga/ Pengepul/ Admin/
-│   └── Middleware/  Hak akses per peran, cek verifikasi & saldo
+│   ├── Middleware/  Hak akses per peran, cek verifikasi & saldo
+│   └── Requests/    Validasi form dengan pesan bahasa Indonesia
 ├── Models/         16 model
-├── Services/       Logika bisnis (indeks harga, metrik, pencarian)
+├── Policies/       Hak akses per permintaan jemput
+├── Services/       Seluruh logika bisnis (transaksi, saldo, komisi, sengketa, indeks)
 └── Support/        Haversine, format rupiah, embed peta
 
 database/
 ├── migrations/     16 tabel
-└── seeders/        Data demo wilayah Karawang + 420 transaksi
+└── seeders/        Data demo wilayah Karawang + 420 transaksi + antrean admin
 
 resources/views/
-├── components/     Sistem desain (kartu, tombol, grafik SVG, peta, dll.)
+├── components/     Sistem desain (kartu, tombol, modal, grafik SVG, peta, dll.)
 ├── publik/         Beranda, pusat harga, cari pengepul, peringkat
 ├── auth/           Masuk & daftar
-├── warga/          Dashboard warga
-├── pengepul/       Dashboard pengepul
-└── admin/          Dashboard admin
+├── warga/          Dashboard, ajukan penjemputan, permintaan, dampak
+├── pengepul/       Dashboard, harga, permintaan, terbuka, dompet, lapak
+└── admin/          Verifikasi, top-up, transaksi, sengketa, kategori, harga, pengguna
+
+docs/superpowers/specs/   Dokumen arsitektur lengkap
+tests/                    Pengujian otomatis
 ```
 
 ---

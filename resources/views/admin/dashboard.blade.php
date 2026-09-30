@@ -125,7 +125,7 @@
                             @foreach ($transaksiTerbaru as $t)
                                 <tr>
                                     <td class="py-2.5 pr-3">
-                                        <code class="font-mono text-xs text-slate-500 dark:text-slate-400">{{ $t->kode }}</code>
+                                        <a href="{{ route('admin.transaksi.show', $t) }}" class="font-mono text-xs font-semibold text-merk-700 hover:underline dark:text-merk-400">{{ $t->kode }}</a>
                                     </td>
                                     <td class="py-2.5 pr-3">
                                         <span class="block max-w-[8rem] truncate text-slate-700 dark:text-slate-300">

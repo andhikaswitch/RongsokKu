@@ -77,7 +77,12 @@ class DashboardController extends Controller
     {
         $profil = $this->profil();
 
-        $ulasan = $profil->ulasan()->with('warga')->whereNotNull('komentar')->latest()->take(10)->get();
+        // Ulasan yang belum dibalas ditampilkan lebih dulu.
+        $ulasan = $profil->ulasan()->with('warga')
+            ->orderByRaw('CASE WHEN balasan IS NULL THEN 0 ELSE 1 END')
+            ->latest()
+            ->take(15)
+            ->get();
 
         $sebaranRating = $profil->ulasan()
             ->selectRaw('rating, COUNT(*) as jumlah')

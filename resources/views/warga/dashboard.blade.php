@@ -32,7 +32,8 @@
 
                 <div class="space-y-3">
                     @forelse ($berjalan as $p)
-                        <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50">
+                        <a href="{{ route('warga.permintaan.show', $p) }}"
+                           class="block rounded-xl bg-slate-50 p-4 ring-1 ring-transparent transition hover:ring-merk-300 dark:bg-slate-800/50 dark:hover:ring-merk-700">
                             <div class="flex flex-wrap items-start justify-between gap-3">
                                 <div class="min-w-0">
                                     <div class="flex flex-wrap items-center gap-2">
@@ -96,7 +97,7 @@
                                     </p>
                                 </div>
                             @endif
-                        </div>
+                        </a>
                     @empty
                         <x-kosong ikon="truk" judul="Belum ada permintaan berjalan"
                                   pesan="Punya rongsok menumpuk? Cari pengepul terdekat dan ajukan penjemputan.">
@@ -113,7 +114,7 @@
                 <x-kartu judul="Transaksi Terakhir">
                     <div class="divide-y divide-slate-100 dark:divide-slate-800">
                         @foreach ($riwayat as $r)
-                            <div class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
+                            <a href="{{ route('warga.permintaan.show', $r) }}" class="flex items-center gap-4 py-3 transition first:pt-0 last:pb-0 hover:opacity-75">
                                 <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
                                     <x-ikon nama="cek-lingkar" ukuran="size-5" />
                                 </span>
@@ -133,7 +134,7 @@
                                         <span class="text-xs font-medium text-nilai-600 dark:text-nilai-400">Belum diulas</span>
                                     @endif
                                 </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </x-kartu>

@@ -20,6 +20,25 @@ class ProfilPengepul extends Model
         'radius_layanan_km', 'sedang_menerima',
     ];
 
+    /** Samakan dengan nilai bawaan kolom agar model yang baru dibuat langsung konsisten. */
+    protected $attributes = [
+        'status_verifikasi' => 'draf',
+        'izin_b3' => false,
+        'jam_buka' => '07:00:00',
+        'jam_tutup' => '17:00:00',
+        'radius_layanan_km' => 10,
+        'sedang_menerima' => true,
+        'saldo' => 0,
+        'rating_rata' => 0,
+        'jumlah_ulasan' => 0,
+        'total_transaksi' => 0,
+        'total_berat_kg' => 0,
+        'skor_kepatuhan_harga' => 100,
+        'tingkat_penerimaan' => 100,
+        'ketepatan_waktu' => 100,
+        'pembatalan_sepihak' => 0,
+    ];
+
     protected function casts(): array
     {
         return [

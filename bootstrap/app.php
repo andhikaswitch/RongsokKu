@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\AksiTidakValid;
 use App\Http\Middleware\PastikanPengepulTerverifikasi;
 use App\Http\Middleware\PastikanPeran;
 use App\Http\Middleware\PastikanSaldoCukup;
@@ -23,5 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn () => route('login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Pelanggaran aturan bisnis dari service dikembalikan ke halaman
+        // sebelumnya sebagai pesan galat, bukan halaman error 500.
+        $exceptions->render(function (AksiTidakValid $e) {
+            return back()->withInput()->with('galat', $e->getMessage());
+        });
     })->create();

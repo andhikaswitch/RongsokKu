@@ -33,6 +33,7 @@
             @foreach ([
                 ['Warga', 'andhika@warga.test'],
                 ['Pengepul', 'jaya@pengepul.test'],
+                ['Pengepul baru', 'maju@pengepul.test'],
                 ['Admin', 'admin@rongsokku.test'],
             ] as [$peran, $email])
                 <div class="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2 dark:bg-slate-900">

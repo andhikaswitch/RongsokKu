@@ -68,7 +68,8 @@
 
                 <div class="space-y-3">
                     @forelse ($masuk as $p)
-                        <div class="rounded-xl bg-amber-50/60 p-4 ring-1 ring-amber-600/10 dark:bg-amber-500/5 dark:ring-amber-400/20">
+                        <a href="{{ route('pengepul.permintaan.show', $p) }}"
+                           class="block rounded-xl bg-amber-50/60 p-4 ring-1 ring-amber-600/10 transition hover:ring-amber-500/50 dark:bg-amber-500/5 dark:ring-amber-400/20">
                             <div class="flex flex-wrap items-start justify-between gap-3">
                                 <div class="min-w-0">
                                     <div class="flex items-center gap-2">
@@ -97,7 +98,7 @@
                                     </x-lencana>
                                 @endforeach
                             </div>
-                        </div>
+                        </a>
                     @empty
                         <x-kosong ikon="lonceng" judul="Tidak ada permintaan baru"
                                   pesan="Permintaan dari warga yang memilih lapak Anda akan muncul di sini." />
@@ -110,7 +111,7 @@
                 <x-kartu judul="Sedang Diproses">
                     <div class="divide-y divide-slate-100 dark:divide-slate-800">
                         @foreach ($berjalan as $p)
-                            <div class="flex flex-wrap items-center gap-3 py-3 first:pt-0 last:pb-0">
+                            <a href="{{ route('pengepul.permintaan.show', $p) }}" class="flex flex-wrap items-center gap-3 py-3 transition first:pt-0 last:pb-0 hover:opacity-75">
                                 <div class="min-w-0 flex-1">
                                     <div class="flex items-center gap-2">
                                         <span class="truncate text-sm font-semibold text-slate-900 dark:text-white">
@@ -128,7 +129,7 @@
                                 <p class="shrink-0 font-bold text-slate-900 tabular-nums dark:text-white">
                                     {{ rupiah($p->total_final ?? $p->estimasi_total) }}
                                 </p>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </x-kartu>
