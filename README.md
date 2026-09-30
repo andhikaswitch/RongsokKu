@@ -101,58 +101,144 @@ Seluruh aplikasi dibangun **tanpa satu baris JavaScript pun.** Menu, penyaring, 
 
 ---
 
-## Cara Menjalankan
+## Cara Menjalankan di Komputer Sendiri (localhost)
 
-### Prasyarat
-- PHP 8.2 atau lebih baru
-- Composer
-- Node.js 20 atau lebih baru
-- XAMPP (MySQL/MariaDB)
+Panduan ini untuk **Windows + XAMPP**. Cukup dilakukan sekali; untuk pemakaian
+sehari-hari lihat bagian [Menjalankan lagi](#menjalankan-lagi-sehari-hari).
 
-### Langkah Instalasi
+### Langkah 0 — Pasang perangkat yang dibutuhkan
+
+| Perangkat | Versi | Unduh | Cek di terminal |
+|---|---|---|---|
+| XAMPP (PHP + MySQL) | PHP **8.2** atau lebih baru | [apachefriends.org](https://www.apachefriends.org) | `php -v` |
+| Composer | 2.x | [getcomposer.org](https://getcomposer.org/download/) | `composer -V` |
+| Node.js | **20.19+** atau **22 LTS** | [nodejs.org](https://nodejs.org) | `node -v` |
+| Git | terbaru | [git-scm.com](https://git-scm.com) | `git --version` |
+
+> Kalau `php -v` bilang *"not recognized"*, tambahkan `C:\xampp\php` ke **PATH**
+> Windows, lalu tutup dan buka lagi terminalnya.
+
+### Langkah 1 — Nyalakan MySQL
+
+Buka **XAMPP Control Panel**, tekan **Start** pada baris **MySQL** sampai
+tulisannya hijau. Apache tidak perlu dinyalakan.
+
+### Langkah 2 — Buat database
+
+Buka [http://localhost/phpmyadmin](http://localhost/phpmyadmin) (untuk ini Apache
+perlu Start sebentar), pilih tab **Databases**, isi nama `rongsokku`, pilih
+collation `utf8mb4_unicode_ci`, lalu tekan **Create**.
+
+Atau lewat terminal, tanpa phpMyAdmin:
 
 ```bash
-# 1. Klon repositori
-git clone https://github.com/USERNAME/NAMA-REPO.git
-cd NAMA-REPO
+C:\xampp\mysql\bin\mysql -u root -e "CREATE DATABASE rongsokku CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+```
 
-# 2. Pasang dependensi
+### Langkah 3 — Ambil kode proyek
+
+Buka terminal (Command Prompt, PowerShell, atau terminal VS Code) di folder
+tempat kamu ingin menyimpan proyek, misalnya `C:\xampp\htdocs`:
+
+```bash
+git clone https://github.com/andhikaswitch/RongsokKu.git
+cd RongsokKu
+```
+
+### Langkah 4 — Pasang dependensi
+
+```bash
 composer install
 npm install
+```
 
-# 3. Siapkan berkas lingkungan
-cp .env.example .env
+Keduanya butuh internet dan bisa makan waktu beberapa menit.
+
+### Langkah 5 — Siapkan berkas `.env`
+
+Salin `.env.example` menjadi `.env`. Pilih salah satu sesuai terminalmu:
+
+```bash
+copy .env.example .env      # Command Prompt
+cp .env.example .env        # PowerShell / Git Bash
+```
+
+Lalu buat kunci aplikasi:
+
+```bash
 php artisan key:generate
 ```
 
-Buka `.env`, lalu sesuaikan bagian database:
+Isi `.env.example` sudah disiapkan untuk XAMPP (database `rongsokku`, user `root`,
+tanpa kata sandi). Kalau MySQL-mu memakai kata sandi, isi `DB_PASSWORD` di `.env`.
 
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=rongsokku
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-Buat database `rongsokku` lewat phpMyAdmin, lalu lanjutkan:
+### Langkah 6 — Bangun tabel dan data demo
 
 ```bash
-# 4. Bangun tabel dan isi data demo
 php artisan migrate:fresh --seed
+```
 
-# 5. Tautkan folder unggahan
+Tunggu sekitar 20–30 detik sampai muncul tabel **Akun demo**. Perintah ini
+mengisi 420 transaksi contoh, indeks harga, dan antrean admin.
+
+### Langkah 7 — Tautkan folder unggahan
+
+```bash
 php artisan storage:link
+```
 
-# 6. Build tampilan
+Tanpa langkah ini, foto lapak dan foto profil tidak akan tampil.
+
+### Langkah 8 — Build tampilan
+
+```bash
 npm run build
+```
 
-# 7. Jalankan
+### Langkah 9 — Jalankan
+
+```bash
 php artisan serve
 ```
 
-Buka **http://127.0.0.1:8000**
+Buka **[http://127.0.0.1:8000](http://127.0.0.1:8000)** di browser, lalu masuk
+dengan salah satu akun demo di bawah. Biarkan terminal tetap terbuka selama
+aplikasi dipakai; tekan `Ctrl + C` untuk menghentikan.
+
+### Menjalankan lagi (sehari-hari)
+
+Setelah instalasi pertama, cukup:
+
+1. Start **MySQL** di XAMPP Control Panel
+2. `php artisan serve`
+3. Buka http://127.0.0.1:8000
+
+### Setelah menarik perubahan dari rekan (`git pull`)
+
+```bash
+git pull
+composer install
+npm install
+php artisan migrate:fresh --seed
+npm run build
+```
+
+> ⚠️ `migrate:fresh` **menghapus seluruh isi database** lalu mengisinya ulang
+> dengan data demo. Untuk proyek ini aman, karena semua datanya memang data demo.
+
+### Kalau muncul masalah
+
+| Pesan / gejala | Penyebab | Solusi |
+|---|---|---|
+| `No connection could be made because the target machine actively refused it` | MySQL belum jalan | Start MySQL di XAMPP Control Panel |
+| `Unknown database 'rongsokku'` | Database belum dibuat | Ulangi Langkah 2 |
+| `Vite manifest not found` | Tampilan belum di-build | `npm run build` |
+| `No application encryption key has been specified` | Lupa membuat kunci | `php artisan key:generate` |
+| `Your requirements could not be resolved` saat `composer install` | Versi PHP terlalu lama | Pakai XAMPP dengan PHP 8.2+ |
+| Foto lapak / profil tidak muncul | Tautan storage belum dibuat | `php artisan storage:link` |
+| `Failed to listen on 127.0.0.1:8000` | Port sudah dipakai | `php artisan serve --port=8001` |
+| Tampilan berantakan / tanpa warna | CSS lama | `npm run build`, lalu `Ctrl + F5` di browser |
+| Pesan galat berbahasa Inggris | `.env` lama | Pastikan `APP_LOCALE=id` di `.env` |
 
 ### Akun Demo
 
@@ -207,6 +293,7 @@ resources/views/
 └── admin/          Verifikasi, top-up, transaksi, sengketa, kategori, harga, pengguna
 
 docs/superpowers/specs/   Dokumen arsitektur lengkap
+docs/diagram/             Diagram UML (use case, activity, sequence, class) — buka di app.diagrams.net
 tests/                    Pengujian otomatis
 ```
 
