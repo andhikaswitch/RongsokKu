@@ -169,17 +169,44 @@ Lalu buat kunci aplikasi:
 php artisan key:generate
 ```
 
-Isi `.env.example` sudah disiapkan untuk XAMPP (database `rongsokku`, user `root`,
-tanpa kata sandi). Kalau MySQL-mu memakai kata sandi, isi `DB_PASSWORD` di `.env`.
+**Wajib: buka berkas `.env` (bukan `.env.example`) dan pastikan bagian
+database persis seperti ini.** Kalau belum, ubah lalu simpan:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=rongsokku
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+> ⚠️ Kalau `DB_CONNECTION` masih `sqlite`, langkah 6 akan **terlihat berhasil**
+> padahal datanya masuk ke berkas `database/database.sqlite`, bukan ke MySQL.
+> Akibatnya database `rongsokku` di phpMyAdmin tetap kosong dan halaman
+> Cari Pengepul error. Ini terjadi pada `.env.example` versi lama (sebelum
+> 30 September 2026), jadi tetap periksa walaupun baru clone.
+>
+> Kalau MySQL-mu memakai kata sandi, isi `DB_PASSWORD`. Yang diubah selalu
+> `.env`; berkas `.env.example` hanya contoh dan tidak dibaca aplikasi.
 
 ### Langkah 6 — Bangun tabel dan data demo
 
 ```bash
+php artisan config:clear
 php artisan migrate:fresh --seed
 ```
 
 Tunggu sekitar 20–30 detik sampai muncul tabel **Akun demo**. Perintah ini
 mengisi 420 transaksi contoh, indeks harga, dan antrean admin.
+
+Lalu **pastikan datanya benar-benar masuk ke MySQL**: buka phpMyAdmin →
+database `rongsokku`. Harus ada sekitar 25 tabel, dan tabel `users` berisi
+sekitar 16 baris. Kalau kosong, kembali ke Langkah 5 dan periksa `.env`.
+
+> Kalau di langkah ini muncul pertanyaan *"The SQLite database does not exist.
+> Would you like to create it?"*, jawab **no**. Itu tanda `.env` masih
+> memakai SQLite.
 
 ### Langkah 7 — Tautkan folder unggahan
 
@@ -232,6 +259,8 @@ npm run build
 |---|---|---|
 | `No connection could be made because the target machine actively refused it` | MySQL belum jalan | Start MySQL di XAMPP Control Panel |
 | `Unknown database 'rongsokku'` | Database belum dibuat | Ulangi Langkah 2 |
+| `migrate:fresh --seed` berhasil, tapi database `rongsokku` di phpMyAdmin kosong | `.env` masih `DB_CONNECTION=sqlite` | Ubah `.env` sesuai Langkah 5, lalu `php artisan config:clear` dan `php artisan migrate:fresh --seed` |
+| Halaman Cari Pengepul error (`no such function: ASIN` / `RADIANS`) | Aplikasi berjalan di SQLite, bukan MySQL | Sama seperti baris di atas |
 | `Vite manifest not found` | Tampilan belum di-build | `npm run build` |
 | `No application encryption key has been specified` | Lupa membuat kunci | `php artisan key:generate` |
 | `Your requirements could not be resolved` saat `composer install` | Versi PHP terlalu lama | Pakai XAMPP dengan PHP 8.2+ |
