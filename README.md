@@ -13,11 +13,11 @@ Warga punya rongsok menumpuk di rumah, tapi tidak tahu harga wajarnya berapa. Me
 
 Hasil validasi pasar kami terhadap **10 warga dan 2 pengepul** di Karawang:
 
-| Temuan | Angka |
-|---|---|
-| Warga yang mengeluhkan harga rongsok tidak transparan | **100%** |
-| Warga yang tertarik memakai solusi berbentuk platform | **90%** |
-| Pengepul yang masih mencatat transaksi secara manual | **2 dari 2** |
+| Temuan                                                | Angka        |
+| ----------------------------------------------------- | ------------ |
+| Warga yang mengeluhkan harga rongsok tidak transparan | **100%**     |
+| Warga yang tertarik memakai solusi berbentuk platform | **90%**      |
+| Pengepul yang masih mencatat transaksi secara manual  | **2 dari 2** |
 
 RongsokKu menjawab masalah itu dengan satu hal: **membuat harga terlihat.**
 
@@ -26,6 +26,7 @@ RongsokKu menjawab masalah itu dengan satu hal: **membuat harga terlihat.**
 ## Fitur Utama
 
 ### Untuk Warga
+
 - **Cari pengepul terdekat** — diurutkan berdasarkan jarak, rating, atau skor kepatuhan harga
 - **Bandingkan harga** antar pengepul sebelum memilih
 - **Ajukan penjemputan** — harga dikunci saat pengajuan dan tidak bisa diubah sepihak
@@ -33,12 +34,14 @@ RongsokKu menjawab masalah itu dengan satu hal: **membuat harga terlihat.**
 - **Dampak lingkungan & lencana** — pantau berapa kg rongsok yang sudah diselamatkan dari TPA
 
 ### Untuk Pengepul
+
 - **Tentukan harga beli sendiri** per kategori, dibandingkan langsung dengan indeks pasar
 - **Terima permintaan** dari warga yang memilih lapak, atau klaim permintaan terbuka
 - **Catat transaksi otomatis** — tidak perlu bon kertas lagi
 - **Bangun reputasi** lewat rating warga dan metrik performa objektif
 
 ### Untuk Admin
+
 - Verifikasi identitas pengepul dan pengisian saldo
 - Kelola kategori sampah, harga acuan resmi, dan pengaturan platform
 - Pantau transaksi, tangani sengketa, dan awasi pengepul dengan kepatuhan harga rendah
@@ -48,15 +51,19 @@ RongsokKu menjawab masalah itu dengan satu hal: **membuat harga terlihat.**
 ## Yang Membuat RongsokKu Berbeda
 
 ### 📈 Indeks Harga dari Transaksi Nyata
+
 Belum ada lembaga resmi yang menerbitkan harga rongsok secara berkala dan terbuka. Karena itu RongsokKu menyusun **Indeks RongsokKu** sendiri: nilai tengah (median) harga seluruh transaksi selesai dalam 30 hari terakhir. Indeks dilengkapi **harga acuan resmi** dari sumber lokal (bank sampah induk, pabrik daur ulang) yang setiap angkanya dicantumkan asal-usulnya.
 
 ### ⚖️ Skor Kepatuhan Harga
+
 Rating bintang mudah dipengaruhi rasa sungkan. Maka RongsokKu menghitung metrik objektif langsung dari data: **berapa persen transaksi yang dibayar sesuai atau di atas harga yang dipajang pengepul**. Angka ini mendeteksi praktik "harga umpan" — memasang harga tinggi di aplikasi lalu menawar turun saat di lokasi.
 
 ### 💵 Uang Tidak Pernah Melewati Platform
+
 Warga dibayar tunai langsung oleh pengepul. RongsokKu hanya mencatat transaksi dan memotong komisi dari saldo prabayar pengepul. Tidak ada dana warga yang ditahan atau disalurkan.
 
 ### ⚠️ Penanganan Limbah B3
+
 Baterai bekas dan sebagian elektronik ditandai sebagai limbah Bahan Berbahaya dan Beracun, disertai peringatan penanganan, dan hanya bisa diterima pengepul yang berizin.
 
 ---
@@ -88,14 +95,14 @@ DIAJUKAN ──► DIJADWALKAN ──► DIJEMPUT ──► MENUNGGU KONFIRMASI 
 
 ## Teknologi
 
-| | |
-|---|---|
-| Framework | Laravel 12 |
-| Bahasa | PHP 8.2 |
-| Database | MySQL / MariaDB (XAMPP) |
-| Tampilan | Blade + Tailwind CSS 4 |
-| Build | Vite 7 |
-| Peta | OpenStreetMap (embed, tanpa API key) |
+|           |                                      |
+| --------- | ------------------------------------ |
+| Framework | Laravel 12                           |
+| Bahasa    | PHP 8.2                              |
+| Database  | MySQL / MariaDB (XAMPP)              |
+| Tampilan  | Blade + Tailwind CSS 4               |
+| Build     | Vite 7                               |
+| Peta      | OpenStreetMap (embed, tanpa API key) |
 
 Seluruh aplikasi dibangun **tanpa satu baris JavaScript pun.** Menu, penyaring, mode gelap, akordeon, hingga grafik tren harga dikerjakan di sisi server atau dengan HTML, CSS, dan SVG murni.
 
@@ -108,14 +115,14 @@ sehari-hari lihat bagian [Menjalankan lagi](#menjalankan-lagi-sehari-hari).
 
 ### Langkah 0 — Pasang perangkat yang dibutuhkan
 
-| Perangkat | Versi | Unduh | Cek di terminal |
-|---|---|---|---|
-| XAMPP (PHP + MySQL) | PHP **8.2** atau lebih baru | [apachefriends.org](https://www.apachefriends.org) | `php -v` |
-| Composer | 2.x | [getcomposer.org](https://getcomposer.org/download/) | `composer -V` |
-| Node.js | **20.19+** atau **22 LTS** | [nodejs.org](https://nodejs.org) | `node -v` |
-| Git | terbaru | [git-scm.com](https://git-scm.com) | `git --version` |
+| Perangkat           | Versi                       | Unduh                                                | Cek di terminal |
+| ------------------- | --------------------------- | ---------------------------------------------------- | --------------- |
+| XAMPP (PHP + MySQL) | PHP **8.2** atau lebih baru | [apachefriends.org](https://www.apachefriends.org)   | `php -v`        |
+| Composer            | 2.x                         | [getcomposer.org](https://getcomposer.org/download/) | `composer -V`   |
+| Node.js             | **20.19+** atau **22 LTS**  | [nodejs.org](https://nodejs.org)                     | `node -v`       |
+| Git                 | terbaru                     | [git-scm.com](https://git-scm.com)                   | `git --version` |
 
-> Kalau `php -v` bilang *"not recognized"*, tambahkan `C:\xampp\php` ke **PATH**
+> Kalau `php -v` bilang _"not recognized"_, tambahkan `C:\xampp\php` ke **PATH**
 > Windows, lalu tutup dan buka lagi terminalnya.
 
 ### Langkah 1 — Nyalakan MySQL
@@ -204,8 +211,8 @@ Lalu **pastikan datanya benar-benar masuk ke MySQL**: buka phpMyAdmin →
 database `rongsokku`. Harus ada sekitar 25 tabel, dan tabel `users` berisi
 sekitar 16 baris. Kalau kosong, kembali ke Langkah 5 dan periksa `.env`.
 
-> Kalau di langkah ini muncul pertanyaan *"The SQLite database does not exist.
-> Would you like to create it?"*, jawab **no**. Itu tanda `.env` masih
+> Kalau di langkah ini muncul pertanyaan _"The SQLite database does not exist.
+> Would you like to create it?"_, jawab **no**. Itu tanda `.env` masih
 > memakai SQLite.
 
 ### Langkah 7 — Tautkan folder unggahan
@@ -255,30 +262,30 @@ npm run build
 
 ### Kalau muncul masalah
 
-| Pesan / gejala | Penyebab | Solusi |
-|---|---|---|
-| `No connection could be made because the target machine actively refused it` | MySQL belum jalan | Start MySQL di XAMPP Control Panel |
-| `Unknown database 'rongsokku'` | Database belum dibuat | Ulangi Langkah 2 |
-| `migrate:fresh --seed` berhasil, tapi database `rongsokku` di phpMyAdmin kosong | `.env` masih `DB_CONNECTION=sqlite` | Ubah `.env` sesuai Langkah 5, lalu `php artisan config:clear` dan `php artisan migrate:fresh --seed` |
-| Halaman Cari Pengepul error (`no such function: ASIN` / `RADIANS`) | Aplikasi berjalan di SQLite, bukan MySQL | Sama seperti baris di atas |
-| `Vite manifest not found` | Tampilan belum di-build | `npm run build` |
-| `No application encryption key has been specified` | Lupa membuat kunci | `php artisan key:generate` |
-| `Your requirements could not be resolved` saat `composer install` | Versi PHP terlalu lama | Pakai XAMPP dengan PHP 8.2+ |
-| Foto lapak / profil tidak muncul | Tautan storage belum dibuat | `php artisan storage:link` |
-| `Failed to listen on 127.0.0.1:8000` | Port sudah dipakai | `php artisan serve --port=8001` |
-| Tampilan berantakan / tanpa warna | CSS lama | `npm run build`, lalu `Ctrl + F5` di browser |
-| Pesan galat berbahasa Inggris | `.env` lama | Pastikan `APP_LOCALE=id` di `.env` |
+| Pesan / gejala                                                                  | Penyebab                                 | Solusi                                                                                               |
+| ------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `No connection could be made because the target machine actively refused it`    | MySQL belum jalan                        | Start MySQL di XAMPP Control Panel                                                                   |
+| `Unknown database 'rongsokku'`                                                  | Database belum dibuat                    | Ulangi Langkah 2                                                                                     |
+| `migrate:fresh --seed` berhasil, tapi database `rongsokku` di phpMyAdmin kosong | `.env` masih `DB_CONNECTION=sqlite`      | Ubah `.env` sesuai Langkah 5, lalu `php artisan config:clear` dan `php artisan migrate:fresh --seed` |
+| Halaman Cari Pengepul error (`no such function: ASIN` / `RADIANS`)              | Aplikasi berjalan di SQLite, bukan MySQL | Sama seperti baris di atas                                                                           |
+| `Vite manifest not found`                                                       | Tampilan belum di-build                  | `npm run build`                                                                                      |
+| `No application encryption key has been specified`                              | Lupa membuat kunci                       | `php artisan key:generate`                                                                           |
+| `Your requirements could not be resolved` saat `composer install`               | Versi PHP terlalu lama                   | Pakai XAMPP dengan PHP 8.2+                                                                          |
+| Foto lapak / profil tidak muncul                                                | Tautan storage belum dibuat              | `php artisan storage:link`                                                                           |
+| `Failed to listen on 127.0.0.1:8000`                                            | Port sudah dipakai                       | `php artisan serve --port=8001`                                                                      |
+| Tampilan berantakan / tanpa warna                                               | CSS lama                                 | `npm run build`, lalu `Ctrl + F5` di browser                                                         |
+| Pesan galat berbahasa Inggris                                                   | `.env` lama                              | Pastikan `APP_LOCALE=id` di `.env`                                                                   |
 
 ### Akun Demo
 
 Kata sandi semua akun: `password`
 
-| Peran | Email |
-|---|---|
-| Warga | `andhika@warga.test` |
-| Pengepul | `jaya@pengepul.test` |
-| Pengepul (belum terverifikasi) | `maju@pengepul.test` |
-| Admin | `admin@rongsokku.test` |
+| Peran                          | Email                  |
+| ------------------------------ | ---------------------- |
+| Warga                          | `andhika@warga.test`   |
+| Pengepul                       | `jaya@pengepul.test`   |
+| Pengepul (belum terverifikasi) | `maju@pengepul.test`   |
+| Admin                          | `admin@rongsokku.test` |
 
 ---
 
@@ -330,11 +337,11 @@ tests/                    Pengujian otomatis
 
 ## Tim Pengembang
 
-| NIM | Nama | Tanggung Jawab |
-|---|---|---|
-| 2410631170039 | Defry Ananta Perangin Angin | Modul Warga |
-| 2410631170066 | Andhika Eka Pratama | Modul Pengepul |
-| 2410631170068 | Diego Andreas Simanjuntak | Modul Admin & Indeks Harga |
-| 2410631170129 | Muhammad Rizky Rajabi | Arsitektur & Sistem Desain |
+| NIM           | Nama                        | Tanggung Jawab             |
+| ------------- | --------------------------- | -------------------------- |
+| 2410631170039 | Muhammad Rizky Rajabi       | Modul Warga                |
+| 2410631170066 | Defry Ananta Perangin Angin | Modul Pengepul             |
+| 2410631170068 | Diego Andreas Simanjuntak   | Modul Admin & Indeks Harga |
+| 2410631170129 | Andhika Eka Pratama         | Arsitektur & Sistem Desain |
 
 Informatika 5B · Fakultas Ilmu Komputer · Universitas Singaperbangsa Karawang
