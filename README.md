@@ -333,8 +333,8 @@ tests/                    Pengujian otomatis
 | NIM | Nama | Tanggung Jawab |
 |---|---|---|
 | 2410631170039 | Muhammad Rizky Rajabi | Modul Warga |
-| 2410631170066 | Defry Ananta Perangin Angin | Modul Pengepul |
+| 2410631170066 | Andhika Eka Pratama | Modul Pengepul |
 | 2410631170068 | Diego Andreas Simanjuntak | Modul Admin & Indeks Harga |
-| 2410631170129 | Andhika Eka Pratama | Arsitektur & Sistem Desain |
+| 2410631170129 | Defry Ananta Perangin Angin | Arsitektur & Sistem Desain |
 
 Informatika 5B · Fakultas Ilmu Komputer · Universitas Singaperbangsa Karawang
