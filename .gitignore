@@ -22,3 +22,12 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Dokumen tugas (PPT, Word, dll.) disimpan lokal saja; yang di-push hanya diagram berikut
+/docs/*
+!/docs/diagram/
+/docs/diagram/*
+!/docs/diagram/activity-diagram.xml
+!/docs/diagram/class-diagram.xml
+!/docs/diagram/sequence-diagram.xml
+!/docs/diagram/use-case-diagram.xml
