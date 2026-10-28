@@ -92,7 +92,8 @@ class PengajuanController extends Controller
             'terbuka' => $this->keranjang->terbuka(),
             'rincian' => $this->keranjang->rincian(),
             'kelurahan' => Wilayah::kelurahan()->with('induk')->orderBy('induk_id')->orderBy('nama')->get()
-                ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya'),
+                ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya')
+                ->sortKeys(),
         ]);
     }
 

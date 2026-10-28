@@ -20,7 +20,8 @@ class ProfilController extends Controller
         return view('profil.edit', [
             'pengguna' => $request->user()->load('wilayah.induk'),
             'kelurahan' => Wilayah::kelurahan()->with('induk')->orderBy('induk_id')->orderBy('nama')->get()
-                ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya'),
+                ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya')
+                ->sortKeys(),
         ]);
     }
 

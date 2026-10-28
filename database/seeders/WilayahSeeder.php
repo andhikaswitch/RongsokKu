@@ -7,76 +7,38 @@ use Illuminate\Database\Seeder;
 
 class WilayahSeeder extends Seeder
 {
+    /**
+     * Seluruh 30 kecamatan dan 309 desa/kelurahan Kabupaten Karawang.
+     *
+     * Memakai updateOrCreate agar aman dijalankan ulang pada database yang
+     * sudah berisi data: wilayah lama tetap memakai ID yang sama (sehingga
+     * pengguna tidak kehilangan kelurahannya) dan wilayah yang belum ada ditambahkan.
+     */
     public function run(): void
     {
-        $provinsi = Wilayah::create([
-            'nama' => 'Jawa Barat',
-            'tingkat' => 'provinsi',
-            'latitude' => -6.9147444,
-            'longitude' => 107.6098111,
-        ]);
+        $provinsi = $this->simpan(null, 'Jawa Barat', 'provinsi', -6.9147444, 107.6098111);
+        $kabupaten = $this->simpan($provinsi->id, 'Kabupaten Karawang', 'kabupaten', -6.3227, 107.3376);
 
-        $kabupaten = Wilayah::create([
-            'induk_id' => $provinsi->id,
-            'nama' => 'Kabupaten Karawang',
-            'tingkat' => 'kabupaten',
-            'latitude' => -6.3227,
-            'longitude' => 107.3376,
-        ]);
+        // Koordinat desa dipakai sebagai titik awal perhitungan jarak Haversine;
+        // pengguna dapat memperhalus titiknya sendiri lewat halaman "Atur titik di peta".
+        $data = require database_path('data/wilayah_karawang.php');
 
-        // Koordinat kelurahan dipakai sebagai titik acuan perhitungan jarak
-        // Haversine, sehingga warga tidak perlu mengisi lat/lng sendiri.
-        $data = [
-            'Karawang Barat' => [
-                ['Nagasari', -6.3059, 107.2951],
-                ['Karawang Kulon', -6.3131, 107.2909],
-                ['Tanjungpura', -6.3238, 107.2846],
-                ['Adiarsa Barat', -6.3212, 107.3018],
-                ['Tanjungmekar', -6.2967, 107.2893],
-            ],
-            'Karawang Timur' => [
-                ['Adiarsa Timur', -6.3188, 107.3167],
-                ['Palumbonsari', -6.3094, 107.3289],
-                ['Warungbambu', -6.3011, 107.3401],
-                ['Plawad', -6.3272, 107.3245],
-            ],
-            'Klari' => [
-                ['Duren', -6.3372, 107.3861],
-                ['Klari', -6.3419, 107.3702],
-                ['Anggadita', -6.3287, 107.3944],
-            ],
-            'Telukjambe Timur' => [
-                ['Sukaluyu', -6.3405, 107.2807],
-                ['Sirnabaya', -6.3521, 107.2913],
-                ['Pinayungan', -6.3318, 107.2736],
-            ],
-            'Cikampek' => [
-                ['Cikampek Kota', -6.4092, 107.4569],
-                ['Dawuan Tengah', -6.4183, 107.4471],
-            ],
-        ];
+        foreach ($data as [$namaKecamatan, $desa]) {
+            $lat = array_sum(array_column($desa, 2)) / count($desa);
+            $lng = array_sum(array_column($desa, 3)) / count($desa);
+            $kecamatan = $this->simpan($kabupaten->id, $namaKecamatan, 'kecamatan', round($lat, 7), round($lng, 7));
 
-        foreach ($data as $namaKecamatan => $kelurahan) {
-            $latRata = array_sum(array_column($kelurahan, 1)) / count($kelurahan);
-            $lngRata = array_sum(array_column($kelurahan, 2)) / count($kelurahan);
-
-            $kec = Wilayah::create([
-                'induk_id' => $kabupaten->id,
-                'nama' => $namaKecamatan,
-                'tingkat' => 'kecamatan',
-                'latitude' => round($latRata, 7),
-                'longitude' => round($lngRata, 7),
-            ]);
-
-            foreach ($kelurahan as [$nama, $lat, $lng]) {
-                Wilayah::create([
-                    'induk_id' => $kec->id,
-                    'nama' => $nama,
-                    'tingkat' => 'kelurahan',
-                    'latitude' => $lat,
-                    'longitude' => $lng,
-                ]);
+            foreach ($desa as [, $nama, $latDesa, $lngDesa]) {
+                $this->simpan($kecamatan->id, $nama, 'kelurahan', $latDesa, $lngDesa);
             }
         }
+    }
+
+    private function simpan(?int $induk, string $nama, string $tingkat, float $lat, float $lng): Wilayah
+    {
+        return Wilayah::updateOrCreate(
+            ['induk_id' => $induk, 'nama' => $nama, 'tingkat' => $tingkat],
+            ['latitude' => $lat, 'longitude' => $lng],
+        );
     }
 }

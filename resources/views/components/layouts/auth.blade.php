@@ -8,7 +8,7 @@
 
             <a href="{{ route('beranda') }}" class="relative"><x-logo ukuran="size-10" /></a>
 
-            <div class="relative max-w-md">
+            <div class="relative my-auto max-w-md">
                 <h2 class="text-3xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white">
                     Rongsok di rumah punya harga.<br>
                     <span class="text-merk-700 dark:text-merk-400">Sekarang kamu tahu berapa.</span>
@@ -17,26 +17,7 @@
                     Bandingkan harga antar pengepul, pilih yang paling cocok, lalu barangmu
                     dijemput langsung ke rumah.
                 </p>
-
-                <dl class="mt-10 grid grid-cols-3 gap-6">
-                    <div>
-                        <dt class="text-2xl font-extrabold text-merk-700 dark:text-merk-400">100%</dt>
-                        <dd class="mt-1 text-xs leading-snug text-slate-600 dark:text-slate-400">responden ingin harga transparan</dd>
-                    </div>
-                    <div>
-                        <dt class="text-2xl font-extrabold text-merk-700 dark:text-merk-400">90%</dt>
-                        <dd class="mt-1 text-xs leading-snug text-slate-600 dark:text-slate-400">tertarik memakai platform</dd>
-                    </div>
-                    <div>
-                        <dt class="text-2xl font-extrabold text-merk-700 dark:text-merk-400">6</dt>
-                        <dd class="mt-1 text-xs leading-snug text-slate-600 dark:text-slate-400">golongan rongsok diterima</dd>
-                    </div>
-                </dl>
             </div>
-
-            <p class="relative text-xs text-slate-500 dark:text-slate-500">
-                Berdasarkan validasi pasar terhadap 10 warga dan 2 pengepul.
-            </p>
         </div>
 
         {{-- Panel kanan: formulir. --}}

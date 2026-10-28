@@ -20,7 +20,12 @@ class PengaturanRequest extends FormRequest
             'pengaturan.topup_minimum' => ['required', 'numeric', 'min:0'],
             'pengaturan.min_transaksi_indeks' => ['nullable', 'integer', 'min:1'],
             'pengaturan.ambang_peringatan_harga' => ['nullable', 'numeric', 'between:0,100'],
-            'pengaturan.*' => ['nullable', 'string', 'max:255'],
+            'pengaturan.bank_nama' => ['nullable', 'string', 'max:255'],
+            'pengaturan.bank_rekening' => ['nullable', 'string', 'max:255'],
+            'pengaturan.bank_atas_nama' => ['nullable', 'string', 'max:255'],
+            'pengaturan.nama_platform' => ['nullable', 'string', 'max:255'],
+            'pengaturan.kontak_email' => ['nullable', 'email', 'max:255'],
+            'pengaturan.kontak_wa' => ['nullable', 'string', 'max:255'],
         ];
     }
 

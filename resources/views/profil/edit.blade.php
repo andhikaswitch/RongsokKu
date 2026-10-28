@@ -45,6 +45,16 @@
                     </div>
                 </form>
             </x-kartu>
+
+            <x-kartu judul="Titik lokasi" keterangan="Titik di peta dipakai untuk menghitung jarak, bukan teks alamat." class="mt-6">
+                <x-peta :lat="$pengguna->latitude" :lng="$pengguna->longitude" tinggi="h-56" />
+                <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                    <p class="text-sm text-slate-500 dark:text-slate-400">
+                        Belum pas? Klik peta di lokasi rumah atau lapak Anda yang sebenarnya.
+                    </p>
+                    <x-tombol :href="route($awalan.'.lokasi')" variant="halus" ikon="pin">Atur titik di peta</x-tombol>
+                </div>
+            </x-kartu>
         </div>
 
         <div class="space-y-6">

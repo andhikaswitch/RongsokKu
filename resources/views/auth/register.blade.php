@@ -4,7 +4,7 @@
 
     @php $peranTerpilih = old('peran', $peran); @endphp
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+    <form method="POST" action="{{ route('register') }}" class="group space-y-5">
         @csrf
 
         {{-- Pemilih peran: radio + peer, tanpa JavaScript. --}}
@@ -39,13 +39,15 @@
         </fieldset>
 
         {{--
-            Kolom nama usaha selalu dirender karena tanpa JavaScript kita tidak
-            bisa menyembunyikannya secara dinamis. Validasi required_if di server
-            yang menentukan wajib tidaknya.
+            Kolom nama usaha disembunyikan saat "Warga" dipilih, memakai CSS :has()
+            (tanpa JavaScript). Validasi required_if di server tetap yang
+            menentukan wajib tidaknya.
         --}}
-        <x-kolom label="Nama Usaha / Lapak" nama="nama_usaha"
-                 placeholder="Contoh: Pengepul Jaya"
-                 bantuan="Wajib diisi bila Anda mendaftar sebagai pengepul." />
+        <div class="group-has-[input[name=peran][value=warga]:checked]:hidden">
+            <x-kolom label="Nama Usaha / Lapak" nama="nama_usaha"
+                     placeholder="Contoh: Pengepul Jaya"
+                     bantuan="Wajib diisi bila Anda mendaftar sebagai pengepul." />
+        </div>
 
         <x-kolom label="Nama Lengkap" nama="name" wajib autocomplete="name"
                  placeholder="Nama sesuai KTP" />

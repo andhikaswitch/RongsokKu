@@ -69,7 +69,10 @@
             <x-kartu judul="Lokasi lapak" padat>
                 <x-peta :lat="$profil->user->latitude" :lng="$profil->user->longitude" tinggi="h-44" />
                 <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">{{ $profil->user->alamat_detail }}</p>
-                <x-tombol :href="route('pengepul.akun')" variant="hantu" ukuran="kecil" class="mt-2" ikon="pensil">Ubah alamat di Akun Saya</x-tombol>
+                <div class="mt-2 flex flex-wrap gap-1">
+                    <x-tombol :href="route('pengepul.akun.lokasi')" variant="halus" ukuran="kecil" ikon="pin">Atur titik di peta</x-tombol>
+                    <x-tombol :href="route('pengepul.akun')" variant="hantu" ukuran="kecil" ikon="pensil">Ubah alamat</x-tombol>
+                </div>
             </x-kartu>
         </div>
     </div>

@@ -5,8 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
     plugins: [
         laravel({
-            // Proyek ini tidak memakai JavaScript sama sekali (lihat CLAUDE.md).
-            input: ['resources/css/app.css'],
+            // Hampir seluruh halaman tanpa JavaScript; satu-satunya pengecualian adalah
+            // peta interaktif + GPS di halaman "Atur titik lokasi".
+            input: ['resources/css/app.css', 'resources/js/atur-lokasi.js'],
             refresh: true,
         }),
         tailwindcss(),

@@ -145,6 +145,7 @@ class AuthController extends Controller
             ->orderBy('induk_id')
             ->orderBy('nama')
             ->get()
-            ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya');
+            ->groupBy(fn ($w) => $w->induk?->nama ?? 'Lainnya')
+            ->sortKeys();
     }
 }

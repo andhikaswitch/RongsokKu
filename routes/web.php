@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BerkasController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\Pengepul;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Publik;
@@ -88,6 +89,8 @@ Route::middleware(['auth', 'peran:warga'])->prefix('warga')->name('warga.')->gro
     Route::get('/profil', [ProfilController::class, 'edit'])->name('profil');
     Route::put('/profil', [ProfilController::class, 'update'])->name('profil.update');
     Route::put('/profil/sandi', [ProfilController::class, 'sandi'])->name('profil.sandi');
+    Route::get('/profil/lokasi', [LokasiController::class, 'edit'])->name('profil.lokasi');
+    Route::put('/profil/lokasi', [LokasiController::class, 'update'])->name('profil.lokasi.simpan');
 });
 
 /*
@@ -116,6 +119,8 @@ Route::middleware(['auth', 'peran:pengepul'])->prefix('mitra')->name('pengepul.'
     Route::get('/akun', [ProfilController::class, 'edit'])->name('akun');
     Route::put('/akun', [ProfilController::class, 'update'])->name('akun.update');
     Route::put('/akun/sandi', [ProfilController::class, 'sandi'])->name('akun.sandi');
+    Route::get('/akun/lokasi', [LokasiController::class, 'edit'])->name('akun.lokasi');
+    Route::put('/akun/lokasi', [LokasiController::class, 'update'])->name('akun.lokasi.simpan');
 
     Route::middleware('pengepul.terverifikasi')->group(function () {
         Route::get('/harga', [Pengepul\HargaController::class, 'index'])->name('harga.index');
