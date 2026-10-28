@@ -8,6 +8,11 @@
     <title>@yield('judul', 'Jual Rongsok Jadi Mudah') &middot; RongsokKu</title>
     <meta name="description" content="@yield('deskripsi', 'RongsokKu menghubungkan warga dengan pengepul terdekat. Harga transparan, barang dijemput ke rumah.')">
 
+    {{-- Ikon tab browser dan ikon layar utama HP (logo RongsokKu, PNG di public/images). --}}
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ asset('images/logo-rongsokku-icon-128.png') }}">
+    <link rel="icon" type="image/png" sizes="256x256" href="{{ asset('images/logo-rongsokku-icon-256.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-rongsokku-icon-256.png') }}">
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap" rel="stylesheet">
 
